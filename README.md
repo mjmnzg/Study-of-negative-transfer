@@ -4,7 +4,7 @@ This repository contains the implementations of VADA and RSDA reported in the pa
 
 # Cite
 
-	@article{Jiménez-Guarneros2021,
+	@article{Jimenez2021,
 	title = {A study of the effects of negative transfer on deep unsupervised domain adaptation methods},
 	journal = {Expert Systems with Applications},
 	volume = {167},
