@@ -1,0 +1,28 @@
+#!/bin/bash
+
+declare -a source="dsb00"
+declare -a type_data="synth_blobs"
+declare -a target=("dsb01" "dsb02" "dsb03_15" "dsb03_30" "dsb03_45" "dsb04_5" "dsb04_10" "dsb04_15" "dsb05" "dsb06" "dsb07" "dsb08" "dsb08_c" "dsb08_d" "dsb09")
+
+#declare -a source="dsm00"
+#declare -a type_data="synth_moons"
+#declare -a target=("dsm01" "dsm02" "dsm03_15" "dsm03_30" "dsm03_45" "dsm04_5" "dsm04_10" "dsm04_15" "dsm05" "dsm06" "dsm07" "dsm08" "dsm09")
+
+
+for d_t in "${target[@]}"
+do
+	for i in {1..10}; do
+		seed=$(($((100*$i))+123));
+
+		echo "Method: VADA  Dataset:" $d_t "  Execution: " $i
+		# blobs: lr=0.01
+		# moons: lr=0.01
+		# bn: enable
+		CUDA_VISIBLE_DEVICES=0 python3 run_dirtt.py --run 0 --data $type_data --dirt 0 --nn fnn --run 999 --lr 0.01 --dir_resume outputs/resume --loss vada --source_data $source --target_data $d_t --seed $seed --num_epochs 100 --batch_size 128 --optimizer adam --trim 2 --dw 0.1 --sw 0.1 --tw 0.1 --radius 1.5 --use_ema True
+		
+		echo "" 
+		echo ""
+	done
+done
+
+

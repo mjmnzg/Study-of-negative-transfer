@@ -1,0 +1,19 @@
+#!/bin/bash	
+
+# SEED
+declare -a dataset="seed"
+declare -a num_iter=50
+declare -a batch_size=560
+declare -a session=1
+
+
+for i in {1..5}; do
+	seed=$(($((100*$i))+123));
+
+
+	echo "Method: VADA  Dataset:" $d_t "  Execution: " $i
+	CUDA_VISIBLE_DEVICES=0 python3 run_dirtt.py --run 0 --data $dataset --dirt 0 --nn dfn_seed --run 999 --lr 0.0001 --dir_resume outputs --loss vada --seed $seed --num_epochs 100 --batch_size $batch_size --optimizer adam --trim 2 --dw 0.1 --sw 0.1 --tw 0.1 --radius 2.5 --use_ema True --session $session
+
+	echo ""
+	echo ""
+done

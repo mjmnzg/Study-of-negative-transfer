@@ -1,0 +1,15 @@
+#!/bin/bash	
+
+
+# STROKE DATA
+for i in {1..5}; do
+	seed=$(($((100*$i))+123));
+
+	echo "Method: VADA  Dataset:" $d_t "  Execution: " $i
+	CUDA_VISIBLE_DEVICES=0 python3 run_dirtt.py --run 0 --data stroke --dirt 0 --nn dfn_stroke --run 999 --lr 0.001 --dir_resume outputs --loss vada --seed $seed --num_epochs 100 --batch_size 50 --optimizer adam --trim 2 --dw 0.1 --sw 0.1 --tw 0.1 --radius 4.5 --use_ema True
+
+	echo ""
+	echo ""
+done
+
+
