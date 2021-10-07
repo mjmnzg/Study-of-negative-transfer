@@ -1,0 +1,26 @@
+#!/bin/bash
+
+declare -a source="dsb00"
+declare -a num_class=3
+declare -a target=("dsb01" "dsb02" "dsb03_15" "dsb03_30" "dsb03_45" "dsb04_5" "dsb04_10" "dsb04_15" "dsb05" "dsb06" "dsb07" "dsb08" "dsb09")
+
+
+declare -a source="dsm00"
+declare -a num_class=2
+declare -a target=("dsm01" "dsm02" "dsm03_15" "dsm03_30" "dsm03_45" "dsm04_5" "dsm04_10" "dsm04_15" "dsm05" "dsm06" "dsm07" "dsm08" "dsm09")
+
+
+for d_t in "${target[@]}"
+do
+	for i in {1..10}; do
+		seed=$(($((100*$i))+123));
+		echo "Model: SRDA"  "Database:" $d_t "Execution:" $i "seed:" $seed
+		python3 main.py --dataset synthetic --source $source --target $d_t --gpu_id 0 --num_class $num_class --seed $seed --lr_a 0.01 --lr_b 0.001 --batch_size 64 --stages 2 --max_iter1 1000 --max_iter2 800 --bottleneck_dim 64
+		
+		echo "" 
+		echo ""
+	done
+done
+
+
+

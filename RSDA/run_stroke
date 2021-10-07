@@ -1,0 +1,21 @@
+#!/bin/bash
+
+declare -a data="stroke"
+declare -a num_class=2
+
+
+
+for subj in {1..4}; do
+	for iter in {1..5}; do
+		seed=$(($((100*$iter))+123));
+
+		echo "Method: RSDA  Iter:" $iter "  Subject: " $subj
+		python3 main.py --dataset $data --target $subj --gpu_id 0 --num_class $num_class --seed $seed --lr_a 0.0001 --lr_b 0.00001 --batch_size 50 --radius 5.0 --max_iter1 1000 --max_iter2 1000 --bottleneck_dim 100 --stages 3
+
+		echo ""
+		echo ""
+	done
+done
+
+
+
